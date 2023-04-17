@@ -56,7 +56,7 @@ end
 
 local function debugLog(string)
     if config.debugLogOn then
-        mwse.log("[Heat Haze "..version.."] "..string.format("%s", string))
+        mwse.log("[Heat Haze "..version.."] "..string)
     end
 end
 
@@ -115,7 +115,13 @@ local function startHaze()
         return
     end
 
-    local regionID = cell.region.id
+    local region = cell.region
+    local regionID
+    if region then
+        regionID = cell.region.id
+    else
+         regionID = ""
+    end
     if not isHeatRegion(regionID) then
         debugLog("Detected ineligible region. Removing shader.")
         distanceTimer:pause()
